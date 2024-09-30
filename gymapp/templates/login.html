@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
 </head>
 <body>
-    <div class="register-form">
+    <div class="login-form">
+        <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
-        <a href="{% url 'login' %}">Login here</a>
+        <a href="{% url 'register' %}">Register here</a>
     </div>
 </body>
 </html>
