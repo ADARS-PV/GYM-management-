@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Select a Course</h2>
+<ul>
+    {% for course in courses %}
+    <li>
+        <h3>{{ course.duration }}</h3>
+        <p>Price: {{ course.price }}</p>
+        <a href="{% url 'trainer_list' course.id %}">Choose</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

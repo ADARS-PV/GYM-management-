@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Select a Time Slot</h2>
+<ul>
+    {% for timeslot in timeslots %}
+    <li>
+        <p>Date: {{ timeslot.date }}</p>
+        <p>Time: {{ timeslot.time }}</p>
+        <a href="{% url 'payment' timeslot.id %}">Choose Time</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

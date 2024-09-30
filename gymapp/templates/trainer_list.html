@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Select a Trainer</h2>
+<ul>
+    {% for trainer in trainers %}
+    <li>
+        <img src="{{ trainer.photo.url }}" alt="{{ trainer.name }}" />
+        <h3>{{ trainer.name }}</h3>
+        <p>Age: {{ trainer.age }}</p>
+        <p>Category: {{ trainer.category }}</p>
+        <a href="{% url 'timeslot_list' trainer.id %}">Choose Trainer</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
