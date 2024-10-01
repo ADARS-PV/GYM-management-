@@ -4,7 +4,7 @@
 <ul>
     {% for trainer in trainers %}
     <li>
-        <img src="{{ trainer.photo.url }}" alt="{{ trainer.name }}" />
+        <img src="{{ trainer.photo.url }}" alt="{{ trainer.name }}" style="width: 150px; height: auto;" />
         <h3>{{ trainer.name }}</h3>
         <p>Age: {{ trainer.age }}</p>
         <p>Category: {{ trainer.category }}</p>
@@ -12,5 +12,4 @@
     </li>
     {% endfor %}
 </ul>
-
 {% endblock %}

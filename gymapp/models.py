@@ -27,7 +27,7 @@ class Trainer(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     category = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='trainers/')
+    photo = models.ImageField(upload_to='trainers')
 
     def __str__(self):
         return self.name
