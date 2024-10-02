@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm, LoginForm
 from .models import Course, Trainer, TimeSlot, Booking,Profile
-# import razorpay
+from django.http import HttpResponseBadRequest
+import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
@@ -64,27 +65,65 @@ def timeslot_list(request, trainer_id):
     return render(request, 'timeslot_list.html', {'timeslots': timeslots})
 
 def payment(request, timeslot_id):
-    timeslot = TimeSlot.objects.get(id=timeslot_id)
-    course = Course.objects.get(id=request.session['course_id'])
-    amount = int(course.price * 100)  # Razorpay amount should be in paise
+    timeslot = get_object_or_404(TimeSlot, id=timeslot_id)
+    course = get_object_or_404(Course, id=request.session.get('course_id'))
+    amount = int(course.price * 100)  # Razorpay accepts amounts in paise
+
+    # Razorpay client setup
     client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-    payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
+
+    # Create a Razorpay order
+    payment = client.order.create({
+        'amount': amount,  # Amount in paise
+        'currency': 'INR',
+        'payment_capture': '1'  # Auto capture payment
+    })
+
+    # Create booking entry but do not mark it as paid yet
     booking = Booking.objects.create(
         user=request.user,
         course=course,
-        trainer_id=request.session['trainer_id'],
+        trainer=timeslot.trainer,
         timeslot=timeslot,
     )
+
     context = {
         'payment': payment,
         'booking': booking,
-        'amount': amount,
+        'amount': amount / 100,  # Display amount in rupees
         'razorpay_key_id': settings.RAZORPAY_KEY_ID,
     }
+
     return render(request, 'payment.html', context)
 
 @csrf_exempt
 def payment_callback(request):
-    # Handle the payment verification and update booking status
-    pass
+    if request.method == "POST":
+        try:
+            # Retrieve data from the POST request sent by Razorpay
+            payment_id = request.POST.get('razorpay_payment_id')
+            order_id = request.POST.get('razorpay_order_id')
+            signature = request.POST.get('razorpay_signature')
+            booking_id = request.POST.get('booking_id')
 
+            # Verify the Razorpay signature
+            client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+            params_dict = {
+                'razorpay_order_id': order_id,
+                'razorpay_payment_id': payment_id,
+                'razorpay_signature': signature
+            }
+            client.utility.verify_payment_signature(params_dict)
+
+            # If successful, update the booking status to paid
+            booking = Booking.objects.get(id=booking_id)
+            booking.payment_status = True
+            booking.save()
+
+            return render(request, 'payment_success.html', {'booking': booking})
+         
+        except Exception as e:
+            return HttpResponseBadRequest(f"Payment failed: {e}")
+    else:
+        return HttpResponseBadRequest("Invalid request method.")
+        return redirect('home')
