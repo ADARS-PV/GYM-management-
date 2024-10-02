@@ -27,6 +27,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
         }
 
         /* Logo and Company Name */
@@ -69,11 +70,12 @@
             display: block;
             font-weight: bold;
             text-transform: uppercase;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
         }
 
         nav ul li a:hover {
             background-color: #34495e;
+            color: #ecf0f1; /* Change text color on hover for contrast */
         }
 
         nav ul li ul {
@@ -139,9 +141,7 @@
     </style>
 </head>
 <body>
-    {% if not request.user.is_authenticated %}
-        <!-- No navbar for unauthenticated users -->
-    {% else %}
+    {% if request.user.is_authenticated %}
         <!-- Navbar with Logo and Company Name -->
         <nav>
             <div class="logo">
@@ -165,10 +165,10 @@
         </nav>
     {% endif %}
 
-    <div class="content">
+   
         {% block content %}
         <!-- Main content goes here -->
         {% endblock %}
-    </div>
+   
 </body>
 </html>

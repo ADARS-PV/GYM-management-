@@ -1,14 +1,84 @@
 {% extends 'base.html' %}
+{% load static %} 
 {% block content %}
-<h2>Select a Course</h2>
-<ul>
-    {% for course in courses %}
-    <li>
-        <h3>{{ course.duration }}</h3>
-        <p>Price: {{ course.price }}</p>
-        <a href="{% url 'trainer_list' course.id %}">Choose</a>
-    </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+    <style>
 
+        body {
+            background-image: url("{% static 'images/back1.jpg' %}"); /* Add your image URL here */
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+          
+        }
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+
+        .course-card {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background for cards */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-left: 100px;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .course-card p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .course-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .course-card a:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .course-card {
+                width: 90%;
+            }
+        }
+    </style>
+
+    <h2 style="text-align: center;color: #ffffff;">Select a Course</h2>
+
+    <div class="course-container">
+        {% for course in courses %}
+        <div class="course-card">
+            <h3>{{ course.duration }}</h3>
+            <p>Price: {{ course.price }} INR</p>
+            <a href="{% url 'trainer_list' course.id %}">Choose</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
