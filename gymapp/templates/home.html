@@ -1,7 +1,120 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Gym Management System</h1>
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin: 40px 0;
+        color: #343a40;
+    }
+
+    .carousel img {
+        height: 500px; /* Adjust the height of the carousel images */
+        object-fit: cover; /* Ensures the images cover the area without distortion */
+    }
+
+    .services, .why-choose-us {
+        padding: 40px 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+    }
+
+    .services .col-md-4, .why-choose-us .col-md-6 {
+        text-align: center;
+        margin-bottom: 30px; /* Space between service items */
+    }
+
+    .services img, .why-choose-us img {
+        height: 200px; /* Set a consistent height for service images */
+        width: auto; /* Maintain aspect ratio */
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    footer {
+        background-color: #343a40;
+        color: white;
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+
+<!-- Carousel Section -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/back1.jpg' %}" class="d-block w-100" alt="Slide 1">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/back1.jpg' %}" class="d-block w-100" alt="Slide 2">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/back1.jpg' %}" class="d-block w-100" alt="Slide 3">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Our Services Section -->
+<section class="services">
+    <h2>Our Services</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{% static 'images/back1.jpg' %}" class="img-fluid" alt="Service 1">
+            <h3>Personal Training</h3>
+            <p>Get personalized training plans tailored to your fitness goals.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/back1.jpg' %}" class="img-fluid" alt="Service 2">
+            <h3>Group Classes</h3>
+            <p>Join our group classes for a fun and motivating experience.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/back1.jpg' %}" class="img-fluid" alt="Service 3">
+            <h3>Nutrition Guidance</h3>
+            <p>Receive expert advice on nutrition to complement your training.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
+    <h2>Why Choose Us</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Expert Trainers</h3>
+            <p>Our trainers are certified professionals with years of experience.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/back1.jpg' %}" class="img-fluid" alt="Why Choose Us">
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <div class="text-center">
+        <p>&copy; 2024 Gym Management System. All rights reserved.</p>
+    </div>
+</footer>
+
 {% endblock %}
