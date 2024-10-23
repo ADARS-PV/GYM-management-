@@ -16,6 +16,7 @@ urlpatterns = [
     path('timeslots/<int:trainer_id>/', views.timeslot_list, name='timeslot_list'),
     path('payment/<int:timeslot_id>/', views.payment, name='payment'),
     path('payment/callback/', views.payment_callback, name='payment_callback'),
+    path('daily-class/', views.daily_class_view, name='daily_class'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm, LoginForm
-from .models import Course, Trainer, TimeSlot, Booking,Profile
+from .models import Course, Trainer, TimeSlot, Booking,Profile,DailyClass
 from django.http import HttpResponseBadRequest
 import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+import datetime
+from datetime import timedelta
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -127,3 +131,23 @@ def payment_callback(request):
     else:
         return HttpResponseBadRequest("Invalid request method.")
         return redirect('home')
+
+def daily_class_view(request):
+    # Check if the user has a paid booking
+    booking = Booking.objects.filter(user=request.user, payment_status=True).first()
+
+    if not booking:
+        return render(request, 'no_access.html')  # No access if no paid booking
+
+    if not booking.class_assigned:
+        # If no class has been assigned, show a message
+        return render(request, 'no_class_today.html', {'booking': booking})
+
+    context = {
+        'daily_class': booking.class_assigned,
+        'booking': booking,
+    }
+    return render(request, 'daily_class.html', context)
+    
+    
+ 

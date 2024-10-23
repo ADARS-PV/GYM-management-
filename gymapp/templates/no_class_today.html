@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Class Today</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>No Class Scheduled for Today</h1>
+        <p>It looks like there are no classes scheduled for today with your trainer.</p>
+
+        <div class="booking-details">
+            <h3>Your Booking Details:</h3>
+            <ul>
+                <li><strong>Course:</strong> {{ booking.course.name }}</li>
+                <li><strong>Trainer:</strong> {{ booking.trainer.name }}</li>
+                <li><strong>Time Slot:</strong> {{ booking.timeslot.start_time }} - {{ booking.timeslot.end_time }}</li>
+            </ul>
+        </div>
+
+        <p>Please check back later or contact support if you believe this is an error.</p>
+
+        <a href="{% url 'home' %}" class="btn">Return to Home</a>
+    </div>
+</body>
+</html>

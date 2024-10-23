@@ -41,12 +41,26 @@ class TimeSlot(models.Model):
     def __str__(self):
         return f"{self.trainer.name} - {self.date} {self.time}"
 
+
+    
+
+class DailyClass(models.Model):
+    date = models.DateField()
+    workout_type = models.CharField(max_length=100)
+    video_url = models.URLField(max_length=200)
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.workout_type} on {self.date}"
+
+
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
     timeslot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
     payment_status = models.BooleanField(default=False)
+    class_assigned = models.ForeignKey(DailyClass, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"Booking by {self.user.username}"
