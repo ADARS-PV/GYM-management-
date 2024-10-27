@@ -3,60 +3,74 @@
 {% block content %}
     <style>
         body {
-            background-color: #f8f9fa; /* Light background color */
-            font-family: Arial, sans-serif; /* Change font for better readability */
+            background-image: url("{% static 'images/back1.jpg' %}"); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
         h2 {
             text-align: center;
-            color: #333; /* Darker heading color */
-            margin-bottom: 30px;
+            color: #fff; /* White text for contrast */
+            margin: 30px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for text */
         }
 
         .timeslot-container {
             display: flex;
-            flex-wrap: wrap; /* Allow items to wrap to the next line */
-            justify-content: center; /* Center items horizontally */
-            gap: 20px; /* Space between cards */
-            max-width: 1200px; /* Maximum width for the container */
-            margin: 0 auto; /* Center the container */
-            padding: 20px; /* Padding around the container */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .timeslot-card {
-            background-color: white; /* Card background color */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Card shadow */
-            padding: 20px; /* Padding inside the card */
-            text-align: center; /* Center text */
-            width: 250px; /* Fixed width for cards */
-            transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for a softer look */
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            text-align: center;
+            width: 270px;
+            transition: transform 0.4s, box-shadow 0.4s;
         }
 
         .timeslot-card:hover {
-            transform: translateY(-5px); /* Raise card on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+            transform: translateY(-10px) scale(1.05); /* Lift and enlarge card on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
         .timeslot-card p {
-            margin: 10px 0; /* Space above and below paragraphs */
-            color: #555; /* Darker text color */
-            font-size: 1.1em; /* Slightly larger font */
+            margin: 15px 0;
+            color: #444;
+            font-size: 1.1em;
+            font-weight: 500;
         }
 
         .timeslot-card a {
             display: inline-block;
-            padding: 10px 15px; /* Padding around the link */
-            background-color: #28a745; /* Green background color */
-            color: white; /* White text color */
-            border-radius: 5px; /* Rounded corners for the button */
-            text-decoration: none; /* Remove underline */
-            font-size: 1em; /* Font size */
-            transition: background-color 0.3s; /* Smooth background color transition */
+            padding: 12px 20px;
+            background-image: linear-gradient(to right, #28a745, #218838);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .timeslot-card a:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-image: linear-gradient(to right, #218838, #28a745);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px); /* Slight raise effect */
         }
     </style>
 
@@ -64,8 +78,8 @@
     <div class="timeslot-container">
         {% for timeslot in timeslots %}
         <div class="timeslot-card">
-            <p>Date: {{ timeslot.date }}</p>
-            <p>Time: {{ timeslot.time }}</p>
+            <p><strong>Date:</strong> {{ timeslot.date }}</p>
+            <p><strong>Time:</strong> {{ timeslot.time }}</p>
             <a href="{% url 'payment' timeslot.id %}">Choose Time</a>
         </div>
         {% endfor %}

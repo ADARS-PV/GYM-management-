@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
+
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm, LoginForm
-from .models import Course, Trainer, TimeSlot, Booking,Profile,DailyClass
+from .forms import RegistrationForm, LoginForm,FeedbackForm
+
+from .models import Course, Trainer, TimeSlot, Booking,Profile,DailyClass,Feedback
 from django.http import HttpResponseBadRequest
 import razorpay
 from django.conf import settings
@@ -149,5 +152,25 @@ def daily_class_view(request):
     }
     return render(request, 'daily_class.html', context)
     
+
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.user = request.user
+            feedback.save()
+            return redirect('feedback')
+    else:
+        form = FeedbackForm()
     
+    feedbacks = Feedback.objects.filter(user=request.user)
+    return render(request, 'feedback.html', {'form': form, 'feedbacks': feedbacks})
+
+@staff_member_required
+def admin_feedback_view(request):
+    feedbacks = Feedback.objects.all()
+    return render(request, 'admin_feedback.html', {'feedbacks': feedbacks})
+    
+ 
  

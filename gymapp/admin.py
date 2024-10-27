@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Profile, Course, Trainer, TimeSlot, Booking,DailyClass
+from .models import Profile, Course, Trainer, TimeSlot, Booking,DailyClass,Feedback
+from django.utils import timezone
+
 
 from django import forms
 
@@ -30,8 +32,17 @@ class BookingAdmin(admin.ModelAdmin):
             super().save_model(request, obj, form, change)
 
 
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('user', 'message', 'admin_reply', 'submitted_at', 'replied_at')
+    list_filter = ('submitted_at',)
+    search_fields = ['user__username', 'message']
 
+    def save_model(self, request, obj, form, change):
+        if obj.admin_reply and not obj.replied_at:
+            obj.replied_at = timezone.now()
+        super().save_model(request, obj, form, change)
 
+admin.site.register(Feedback, FeedbackAdmin)
 admin.site.register(Profile)
 admin.site.register(Course)
 admin.site.register(Trainer)

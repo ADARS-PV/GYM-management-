@@ -64,3 +64,13 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booking by {self.user.username}"
+    
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    admin_reply = models.TextField(blank=True, null=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    replied_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Feedback from {self.user.username}"
