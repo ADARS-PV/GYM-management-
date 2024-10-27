@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Course, Trainer, TimeSlot, Booking,DailyClass,Feedback
+from .models import Profile, Course, Trainer, TimeSlot, Booking,DailyClass,Feedback,EatingPlan, DietingPlan, DailyProgress
 from django.utils import timezone
 
 
@@ -42,6 +42,20 @@ class FeedbackAdmin(admin.ModelAdmin):
             obj.replied_at = timezone.now()
         super().save_model(request, obj, form, change)
 
+class EatingPlanAdmin(admin.ModelAdmin):
+    list_display = ('date', 'meal_type', 'meal_plan', 'user')  # Added 'user'
+    list_filter = ('meal_type', 'date')  # Filters by meal type and date
+    search_fields = ('meal_plan',)
+    ordering = ('-date',)  # Order by date descending
+    date_hierarchy = 'date'  # Enable date drilling
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'date', 'meal_type', 'meal_plan')  # Customizing form layout
+        }),
+    )
+
+admin.site.register(EatingPlan,EatingPlanAdmin)
+
 admin.site.register(Feedback, FeedbackAdmin)
 admin.site.register(Profile)
 admin.site.register(Course)
@@ -49,3 +63,6 @@ admin.site.register(Trainer)
 admin.site.register(TimeSlot)
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(DailyClass)
+
+admin.site.register(DietingPlan)
+admin.site.register(DailyProgress)

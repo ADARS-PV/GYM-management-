@@ -74,3 +74,35 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"Feedback from {self.user.username}"
+    
+class EatingPlan(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)  # Make user nullable
+
+    MEAL_CHOICES = [
+        ('Breakfast', 'Breakfast'),
+        ('Lunch', 'Lunch'),
+        ('Dinner', 'Dinner'),
+    ]
+    date = models.DateField()
+    meal_plan = models.TextField()
+    meal_type = models.CharField(max_length=10, choices=MEAL_CHOICES, default='Breakfast')
+
+    def __str__(self):
+        return f"{self.meal_type} on {self.date}"
+
+class DietingPlan(models.Model):
+    date = models.DateField()
+    plan_details = models.TextField()
+
+    def __str__(self):
+        return f"Dieting Plan for {self.date}"
+
+class DailyProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    weight = models.FloatField()
+    body_fat_percentage = models.FloatField()
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Progress for {self.date} by {self.user.username}"

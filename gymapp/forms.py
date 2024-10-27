@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Feedback
+from .models import Feedback,EatingPlan, DietingPlan, DailyProgress
 
 
 class RegistrationForm(UserCreationForm):
@@ -33,3 +33,18 @@ class FeedbackForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FeedbackForm, self).__init__(*args, **kwargs)
         self.fields['message'].label = 'Feedback Message' 
+
+class EatingPlanForm(forms.ModelForm):
+    class Meta:
+        model = EatingPlan
+        fields = ['date', 'meal_plan']
+
+class DietingPlanForm(forms.ModelForm):
+    class Meta:
+        model = DietingPlan
+        fields = ['date', 'plan_details']
+
+class DailyProgressForm(forms.ModelForm):
+    class Meta:
+        model = DailyProgress
+        fields = ['date', 'weight', 'body_fat_percentage', 'notes']

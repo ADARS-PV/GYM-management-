@@ -2,16 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm, LoginForm,FeedbackForm
+from .forms import RegistrationForm, LoginForm,FeedbackForm,EatingPlanForm,DailyProgressForm,DietingPlanForm
 
-from .models import Course, Trainer, TimeSlot, Booking,Profile,DailyClass,Feedback
+from .models import Course, Trainer, TimeSlot, Booking,Profile,DailyClass,Feedback,EatingPlan, DietingPlan, DailyProgress
 from django.http import HttpResponseBadRequest
 import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from datetime import timedelta
-
+from django.utils.timezone import now
 
 
 def register(request):
@@ -172,5 +172,26 @@ def admin_feedback_view(request):
     feedbacks = Feedback.objects.all()
     return render(request, 'admin_feedback.html', {'feedbacks': feedbacks})
     
- 
- 
+
+def eating_plan_view(request):
+        
+    current_user = request.user
+    breakfast_plans = EatingPlan.objects.filter(meal_type="Breakfast")
+    lunch_plans = EatingPlan.objects.filter(meal_type="Lunch")
+    dinner_plans = EatingPlan.objects.filter(meal_type="Dinner")
+
+    context = {
+        'breakfast_plans': breakfast_plans,
+        'lunch_plans': lunch_plans,
+        'dinner_plans': dinner_plans,
+    }
+    return render(request, 'eating_plan.html', context)
+
+
+def dieting_plan_view(request):
+    dieting_plans = DietingPlan.objects.all()  # All dieting plans
+    return render(request, 'dieting_plan.html', {'dieting_plans': dieting_plans})
+
+def daily_progress_view(request):
+    progress_records = DailyProgress.objects.filter(user=request.user)
+    return render(request, 'daily_progress.html', {'progress_records': progress_records})
