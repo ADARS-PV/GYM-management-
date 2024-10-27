@@ -4,207 +4,156 @@
 
 {% block content %}
 <style>
+    /* General Styling */
     body {
-        background-color: #f8f9fa;
-        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        font-family: 'Arial', sans-serif;
+        color: #333;
         scroll-behavior: smooth;
+        margin: 0;
     }
 
     h2 {
         text-align: center;
-        margin: 40px 0;
-        color: #343a40;
+        color: #4a4a4a;
+        margin-top: 40px;
         font-size: 2.5em;
+        font-weight: 700;
         animation: fadeIn 1.5s ease-in-out;
     }
 
-    /* Keyframes for animations */
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+    /* Carousel Styling */
+    .carousel-inner {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    @keyframes slideIn {
-        from { transform: translateY(50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
+    .carousel-caption h5 {
+        font-size: 2em;
+        font-weight: 600;
     }
 
-    @keyframes grow {
-        from { transform: scale(0.95); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
+    .carousel-caption p {
+        font-size: 1.2em;
     }
 
-    .carousel img {
-        height: 500px;
-        object-fit: cover;
-        animation: fadeIn 2s;
+    /* Section Styling */
+    section {
+        padding: 60px 20px;
+        margin: 20px 0;
     }
 
     .services, .why-choose-us, .testimonials, .gallery, .stats {
-        padding: 40px 20px;
         background-color: #ffffff;
-        color: #343a40;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin: 20px 0;
-        animation: slideIn 1s ease-in-out;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 40px;
     }
 
     .services .col-md-4, .why-choose-us .col-md-6, .testimonials .col-md-6 {
         text-align: center;
-        margin-bottom: 30px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .services img, .why-choose-us img, .testimonials img, .gallery img {
-        height: 200px;
-        width: auto;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        animation: grow 1.5s ease;
     }
 
     .services .col-md-4:hover, .why-choose-us .col-md-6:hover, .testimonials .col-md-6:hover {
         transform: translateY(-10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
-    footer {
-        background-color: #343a40;
+    .services img, .why-choose-us img, .testimonials img {
+        border-radius: 8px;
+        margin-bottom: 15px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Button Styles */
+    .btn-custom {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff6b6b;
         color: white;
-        padding: 10px 0;
-        width: 100%;
-        text-align: center;
-        animation: fadeIn 2s ease;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
     }
 
+    .btn-custom:hover {
+        background-color: #ff4d4d;
+    }
+
+    /* Why Choose Us Section */
+    .why-choose-us {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Testimonials Section */
     .testimonials {
-        padding: 40px 20px;
-        background-color: #f8f9fa;
-        color: #343a40;
-        text-align: center;
-        animation: fadeIn 1.5s ease-in-out;
+        background-color: #f7f9fc;
+        padding-top: 20px;
     }
 
     .testimonials h2 {
+        color: #343a40;
+        font-size: 2em;
         margin-bottom: 30px;
-        font-size: 2.5em;
     }
+
     .testimonial-img {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        object-fit: cover; 
+        object-fit: cover;
         margin-bottom: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: zoomIn 1.5s ease-in-out;
+        transition: transform 0.3s ease;
     }
 
-    /* Hover Animation for Testimonial Images */
     .testimonial-img:hover {
         transform: scale(1.1);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
     }
 
-    /* Text Styling and Animation */
     .testimonials p {
         font-style: italic;
-        color: #6c757d;
-        animation: slideIn 1s ease-in-out;
+        color: #555;
     }
 
-    .testimonials p strong {
-        font-weight: bold;
-        display: block;
-        margin-top: 10px;
-        color: #343a40;
-    }
-
-    /* Keyframes for Animations */
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes zoomIn {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes slideIn {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    .gallery img {
-        height: 150px;
-        width: 100%;
-        object-fit: cover;
-        margin-bottom: 15px;
-        border-radius: 10px;
-        animation: grow 1.5s ease;
-    }
-
-    /* Animated Stats Section */
+    /* Stats Section */
     .stats {
         display: flex;
-        justify-content: center;
-        gap: 40px;
-        padding: 40px;
-        background-color: #ffffff;
-        color: #343a40;
-        animation: fadeIn 2s;
-    }
-
-    .stat-item {
-        text-align: center;
-        font-size: 2em;
-        transition: transform 0.3s ease;
+        justify-content: space-around;
+        background-color: #fafafa;
     }
 
     .stat-item h3 {
-        margin-bottom: 10px;
-        font-size: 1.5em;
+        font-size: 1.2em;
+        color: #4a4a4a;
     }
 
     .stat-item span {
-        font-size: 2.5em;
-        font-weight: bold;
-        animation: counter 3s ease-out forwards;
+        font-size: 2em;
+        color: #ff6b6b;
     }
 
-    .stat-item:hover {
-        transform: scale(1.1);
+    /* Footer */
+    footer {
+        background-color: #4a4a4a;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
     }
 
-    @keyframes counter {
-        0% {
-            counter-reset: count 0;
-        }
-        100% {
-            counter-reset: count var(--end-count);
-        }
-    }
-
-    /* Button and Links Hover Effects */
-    .carousel-control-prev, .carousel-control-next {
-        filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
-    }
-
-    .carousel-control-prev:hover, .carousel-control-next:hover {
-        transform: scale(1.1);
-        transition: transform 0.3s ease;
+    footer p {
+        margin: 0;
     }
 </style>
 
 <!-- Carousel Section -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 700px;">
-  <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
   <div class="carousel-inner">
       <div class="carousel-item active">
           <img src="{% static 'images/back1.jpg' %}" class="d-block w-100" alt="Gym" style="height: 800px;">
@@ -228,31 +177,25 @@
           </div>
       </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </button>
 </div>
-<!-- Our Services Section -->
+
+
+<!-- Services Section -->
 <section class="services">
     <h2>Our Services</h2>
     <div class="row">
         <div class="col-md-4">
-            <img src="{% static 'images/ptrainer.jpg' %}" class="img-fluid" alt="Service 1" style="width: 350px;height: 250px;">
+            <img src="{% static 'images/ptrainer.jpg' %}" alt="Personal Training">
             <h3>Personal Training</h3>
             <p>Get personalized training plans tailored to your fitness goals.</p>
         </div>
         <div class="col-md-4">
-            <img src="{% static 'images/yoga.jpg' %}" class="img-fluid" alt="Service 2" style="width: 350px;height: 250px;">
+            <img src="{% static 'images/yoga.jpg' %}" alt="Yoga">
             <h3>Yoga</h3>
             <p>Join our group classes for a fun and motivating experience.</p>
         </div>
         <div class="col-md-4">
-            <img src="{% static 'images/nutrition.jpg' %}" class="img-fluid" alt="Service 3" style="width: 350px;height: 250px;">
+            <img src="{% static 'images/nutrition.jpg' %}" alt="Nutrition Guidance">
             <h3>Nutrition Guidance</h3>
             <p>Receive expert advice on nutrition to complement your training.</p>
         </div>
@@ -263,49 +206,46 @@
 <section class="why-choose-us">
     <h2>Why Choose Us</h2>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" style="font-weight: 700;">
             <h3>Expert Trainers</h3>
-            <p>Our trainers are certified professionals with years of experience.</p>
+            <p>Our gym is more than just a place to work out; it’s a community of individuals dedicated to achieving their personal fitness goals. With state-of-the-art equipment, a variety of group classes, and expert trainers ready to guide you, we provide everything you need to transform your body and mind. Whether you’re a beginner or a seasoned athlete, our gym offers personalized programs to fit every fitness level. Join us and start your journey toward a healthier, stronger you!</p>
+            <p>At FITNESS CLUB, we are dedicated to empowering our members to achieve their fitness goals in a welcoming and supportive environment. Our experienced trainers provide personalized guidance tailored to your unique needs, ensuring you stay motivated and on track. We offer a diverse range of classes and state-of-the-art equipment to accommodate all fitness levels, from beginners to advanced athletes. With our flexible membership options and commitment to community wellness, we foster a positive atmosphere that inspires growth and transformation. Join us today and become part of a thriving community focused on health, strength, and holistic well-being!</p>
         </div>
         <div class="col-md-6">
-            <img src="{% static 'images/banner5.jpg' %}" class="img-fluid" alt="Why Choose Us">
+            <img src="{% static 'images/banner5.jpg' %}" alt="Why Choose Us">
         </div>
     </div>
 </section>
 
 <!-- Testimonials Section -->
 <section class="testimonials">
-  <h2>What Our Clients Say</h2>
-  <div class="row">
-      <div class="col-md-6 text-center">
-          <img src="{% static 'images/gym2.jpg' %}" class="testimonial-img" alt="John Doe" style="border-radius: 50%;object-fit: cover;margin-bottom: 20px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          animation: zoomIn 1.5s ease-in-out;">
-          <p>"I've achieved amazing results thanks to the personal training sessions. Highly recommend!"</p>
-          <p><strong>- John Doe</strong></p>
-      </div>
-      <div class="col-md-6 text-center">
-          <img src="{% static 'images/gym1.jpg' %}" class="testimonial-img" alt="Jane Smith" style="border-radius: 50%;">
-          <p>"The group classes are so much fun and motivating. I look forward to every session."</p>
-          <p><strong>- Jane Smith</strong></p>
-      </div>
-  </div>
+    <h2>What Our Clients Say</h2>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/gym2.jpg' %}" class="testimonial-img" alt="Client 1">
+            <p>"I've achieved amazing results thanks to the personal training sessions. Highly recommend!"</p>
+            <p><strong>- John Doe</strong></p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/gym1.jpg' %}" class="testimonial-img" alt="Client 2">
+            <p>"The group classes are so much fun and motivating. I look forward to every session."</p>
+            <p><strong>- Jane Smith</strong></p>
+        </div>
+    </div>
 </section>
-
-
 
 <!-- Gallery Section -->
 <section class="gallery">
     <h2>Gallery</h2>
     <div class="row">
         <div class="col-md-4">
-            <img src="{% static 'images/blog1.jpg' %}" class="img-fluid" alt="Gallery 1" style="height: 400px;">
+            <img src="{% static 'images/blog1.jpg' %}" alt="Gallery Image 1">
         </div>
         <div class="col-md-4">
-            <img src="{% static 'images/blog2.jpg' %}" class="img-fluid" alt="Gallery 2" style="height: 400px;">
+            <img src="{% static 'images/blog2.jpg' %}" alt="Gallery Image 2">
         </div>
         <div class="col-md-4">
-            <img src="{% static 'images/blog4.jpg' %}" class="img-fluid" alt="Gallery 3" style="height: 400px;">
+            <img src="{% static 'images/blog4.jpg' %}" alt="Gallery Image 3">
         </div>
     </div>
 </section>
